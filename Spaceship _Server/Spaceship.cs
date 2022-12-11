@@ -197,10 +197,6 @@ namespace Spaceship__Server
 
         public void Execute()
         {
-            //if((_object.angle == null) || (_object.angle_velocity == null))
-            //{
-            //    throw new Exception();
-            //}
             _object.angle[0] = _object.angle[0] + _object.angle_velocity[0];
             _object.angle[1] = _object.angle[1] + _object.angle_velocity[1];
             Fraction[] resultAngle = new Fraction[2] { _object.angle[0], _object.angle[1] };
