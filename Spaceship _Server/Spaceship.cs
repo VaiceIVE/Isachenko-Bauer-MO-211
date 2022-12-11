@@ -25,9 +25,9 @@ namespace Spaceship__Server
                 int numer = numer_a + numer_b;
                 if (denom<numer)
                 {
-                    for (int i = denom; i>2; i--)
+                    for (int i = denom; i>1; i--)
                     {
-                        if (numer%i==0 && denom%i==0)
+                        if ((numer % i==0) && (denom % i==0))
                         {
                             numer = numer/i;
                             denom = denom/i;
@@ -36,9 +36,9 @@ namespace Spaceship__Server
                 }
                 else
                 {
-                    for (int i = numer; i>2; i--)
+                    for (int i = numer; i>1; i--)
                     {
-                        if (numer%i==0 && denom%i==0)
+                        if ((numer % i==0) && (denom % i==0))
                         {
                             numer = numer/i;
                             denom = denom/i;
@@ -175,6 +175,11 @@ namespace Spaceship__Server
             return HashCode.Combine(numerator, denominator);
         }
 
+        public override string ToString()
+        {
+            return numerator + "/" + denominator;
+        }
+
     }
 
     public interface IRotatable
@@ -192,8 +197,14 @@ namespace Spaceship__Server
 
         public void Execute()
         {
+            //if((_object.angle == null) || (_object.angle_velocity == null))
+            //{
+            //    throw new Exception();
+            //}
             _object.angle[0] = _object.angle[0] + _object.angle_velocity[0];
             _object.angle[1] = _object.angle[1] + _object.angle_velocity[1];
+            Fraction[] resultAngle = new Fraction[2] { _object.angle[0], _object.angle[1] };
+            _object.angle = resultAngle;
         }
     }
 }
