@@ -3,9 +3,10 @@ name: .NET
 on:
   workflow_dispatch:
   push:
-    branches: [ Spaceship_Move_Test, Spaceship_Rotate_Test, master, MacroBuilderSolid ]
+    branches: [ Spaceship_Move_Test, Spaceship_Rotate_Test, master, ContiniousMovementWithoutStrategies]
   pull_request:
-    branches: [ Spaceship_Move_Test, Spaceship_Move_Test, master, MacroBuilderSolid ]
+    branches: [ Spaceship_Move_Test, Spaceship_Rotate_Test, master, ContiniousMovementWithoutStrategies]
+
 jobs:
   build:
 
@@ -25,6 +26,8 @@ jobs:
       run: dotnet tool install --global dotnet-coverage
     - name: Test
       run: dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
+    - name: Check CodeCov YML
+      run: curl --data-binary @codecov.yml https://codecov.io/validate
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
