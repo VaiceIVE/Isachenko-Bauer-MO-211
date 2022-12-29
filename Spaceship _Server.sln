@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceshipServer.Texts.XUnit
 	ProjectSection(ProjectDependencies) = postProject
 		{B9C93717-00E8-4571-9E52-33F668C42CFD} = {B9C93717-00E8-4571-9E52-33F668C42CFD}
 	EndProjectSection
-EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spaceship.Exceptions.Test", "Spaceship.Exceptions.Test\Spaceship.Exceptions.Test.csproj", "{FF6DEDE5-BFD9-4F77-8D87-67275F909CC0}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spaceship.IoC.Test.No.Strategies", "Spaceship.IoC.Test.No.Strategies\Spaceship.IoC.Test.No.Strategies.csproj", "{CE30CCD3-527B-4EFB-A1FC-BE4AE09B83B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spaceship.Macro.Test", "Spaceship.Macro.Test\Spaceship.Macro.Test.csproj", "{DEC017CA-4991-4F3A-A25D-AB91F7D95BD7}"
@@ -28,6 +28,10 @@ Global
 		{6A7E76EC-3A39-4420-820A-6A597A641E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A7E76EC-3A39-4420-820A-6A597A641E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A7E76EC-3A39-4420-820A-6A597A641E77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF6DEDE5-BFD9-4F77-8D87-67275F909CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6DEDE5-BFD9-4F77-8D87-67275F909CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6DEDE5-BFD9-4F77-8D87-67275F909CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6DEDE5-BFD9-4F77-8D87-67275F909CC0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE30CCD3-527B-4EFB-A1FC-BE4AE09B83B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE30CCD3-527B-4EFB-A1FC-BE4AE09B83B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE30CCD3-527B-4EFB-A1FC-BE4AE09B83B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
