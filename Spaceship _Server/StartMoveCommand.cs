@@ -27,7 +27,8 @@ namespace Spaceship__Server
         {
             this._obj.set_property("Velocity", Velocity);
 
-            IMovable movable = Hwdtech.IoC.Resolve<IMovable>("Adapters.IUObject.MoveCommand", _obj);
+            IMovable movable = Hwdtech.IoC.Resolve<IMovable>("Adapters.IUObject.IMovable", _obj);
+
 
             ICommand mc = new MoveCommand(movable);
 
