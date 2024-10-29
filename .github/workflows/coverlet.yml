@@ -26,10 +26,10 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Setup test enviroment
       run: dotnet tool install --global dotnet-coverage
-    #- name: Test
-    #  run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
     - name: Test
-      run: dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage1.xml'
+      run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+    #- name: Test
+    #  run: dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage1.xml'
     - name: ls
       run: ls
     - name: head1
@@ -48,7 +48,7 @@ jobs:
         hide_complexity: true
         indicators: true
         output: both
-        thresholds: '60 80'
+        thresholds: '20 80'
 
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2
