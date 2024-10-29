@@ -25,12 +25,11 @@ jobs:
     - name: Setup test enviroment
       run: dotnet tool install --global dotnet-coverage
     - name: Test
-      #run: dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
-      run: dotnet test --output build --collect:"XPlat Code Coverage";
+      run: dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
     - name: Install coverage generator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool 
     - name: Generate Coverage report
-      run: reportgenerator -reports:"./Spaceship.IoC.Test.No.Strategies/TestResults/**/coverage.cobertura.xml" -targetdir:"coveragereport" -reporttypes:Html
+      run: reportgenerator -reports:"./**/coverage.xml" -targetdir:"coveragereport" -reporttypes:Html
     - name: Check CodeCov YML
       run: curl --data-binary @codecov.yml https://codecov.io/validate
     - name: Upload coverage to Codecov
