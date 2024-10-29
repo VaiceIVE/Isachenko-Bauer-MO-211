@@ -25,7 +25,8 @@ jobs:
     - name: Setup test enviroment
       run: dotnet tool install --global dotnet-coverage
     - name: Test
-      run: dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
+      #run: dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
+      run: dotnet test --output build --collect:"XPlat Code Coverage";
     - name: Install coverage generator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool 
     - name: Generate Coverage report
