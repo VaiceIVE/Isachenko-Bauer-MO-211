@@ -30,7 +30,7 @@ jobs:
       id: covergae
       uses: juliangruber/read-file-action@v1
       with:
-        path: Summary.csv 
+        path: coverage.xml
     - name: Echo Code Coverage
       run: echo "${{ steps.covergae.outputs.content }}"
     - name: Check CodeCov YML
