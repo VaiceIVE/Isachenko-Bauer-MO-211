@@ -29,7 +29,7 @@ jobs:
     - name: Install coverage generator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool 
     - name: Generate Coverage report
-      run: reportgenerator -reports:"./**/coverage.xml" -targetdir:"coveragereport" -reporttypes:Html
+      run: reportgenerator -reports:"../**/coverage.xml" -targetdir:"coveragereport" -reporttypes:Html
 #    - name: Archive code coverage results
 #        uses: actions/upload-artifact@v4
 #        with:
