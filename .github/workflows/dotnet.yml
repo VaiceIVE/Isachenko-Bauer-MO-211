@@ -26,6 +26,13 @@ jobs:
       run: dotnet tool install --global dotnet-coverage
     - name: Test
       run: dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
+    - name: Read Code Coverage
+      id: covergae
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: Summary.csv 
+    - name: Echo Code Coverage
+      run: echo "${{ steps.covergae.outputs.content }}"
     - name: Check CodeCov YML
       run: curl --data-binary @codecov.yml https://codecov.io/validate
     - name: Upload coverage to Codecov
