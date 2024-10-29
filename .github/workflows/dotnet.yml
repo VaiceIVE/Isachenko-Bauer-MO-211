@@ -29,7 +29,7 @@ jobs:
     - name: Install coverage generator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool 
     - name: Generate Coverage report
-      run: reportgenerator -reports:"/coverage.cobertura.xml" -targetdir:"coveragereport" -reporttypes:Html
+      run: reportgenerator -reports:"./coverage.cobertura.xml" -targetdir:"coveragereport" -reporttypes:Html
     - name: Check CodeCov YML
       run: curl --data-binary @codecov.yml https://codecov.io/validate
     - name: Upload coverage to Codecov
