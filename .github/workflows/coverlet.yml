@@ -33,7 +33,7 @@ jobs:
     - name: ls
       run: ls
     - name: head1
-      run: head coverage.xml
+      run: head coverage1.xml
     - name: head2
       run: head output.xml
     - name: Code Coverage Report
