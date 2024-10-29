@@ -16,7 +16,6 @@ public class ContiniousMovement
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Adapters.IUObject.MoveCommand", (object[] args) => 
         {
-
             MovableAdapter adp = new MovableAdapter(args);
             return adp;
         }).Execute();
