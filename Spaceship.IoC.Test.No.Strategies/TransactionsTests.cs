@@ -19,9 +19,15 @@ public class TransactionsTest
         Dictionary<string, string> transactionManager = new();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
-            var output = null;
+            var output = "";
             transactionManager.TryGetValue((string) args[0], out output);
-            return output;
+            if(output != "")
+            {
+                return output;
+            }
+            else{
+                return null;
+            }
         }).Execute();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentTransaction.Id", (object[] args) => {
@@ -49,9 +55,15 @@ public class TransactionsTest
         Dictionary<string, string> transactionManager = new();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
-            var output = null;
+            var output = "";
             transactionManager.TryGetValue((string) args[0], out output);
-            return output;
+            if(output != "")
+            {
+                return output;
+            }
+            else{
+                return null;
+            }
         }).Execute();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentTransaction.Id", (object[] args) => {
@@ -79,9 +91,15 @@ public class TransactionsTest
         Dictionary<string, string> transactionManager = new();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
-            var output = null;
+            var output = "";
             transactionManager.TryGetValue((string) args[0], out output);
-            return output;
+            if(output != "")
+            {
+                return output;
+            }
+            else{
+                return null;
+            }
         }).Execute();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentTransaction.Id", (object[] args) => {
@@ -122,9 +140,15 @@ public class TransactionsTest
         Dictionary<string, string> transactionManager = new();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
-            var output = null;
+            var output = "";
             transactionManager.TryGetValue((string) args[0], out output);
-            return output;
+            if(output != "")
+            {
+                return output;
+            }
+            else{
+                return null;
+            }
         }).Execute();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentTransaction.Id", (object[] args) => {
@@ -161,9 +185,15 @@ public class TransactionsTest
         Dictionary<string, string> transactionManager = new();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
-            var output = null;
+            var output = "";
             transactionManager.TryGetValue((string) args[0], out output);
-            return output;
+            if(output != "")
+            {
+                return output;
+            }
+            else{
+                return null;
+            }
         }).Execute();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentTransaction.Id", (object[] args) => {
