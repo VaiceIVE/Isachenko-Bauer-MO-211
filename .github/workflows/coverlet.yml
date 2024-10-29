@@ -23,7 +23,7 @@ jobs:
       run: dotnet restore 
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --no-restore
     - name: Setup test enviroment
       run: dotnet tool install --global dotnet-coverage
     - name: Test
