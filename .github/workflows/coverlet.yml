@@ -27,7 +27,7 @@ jobs:
     - name: Setup test enviroment
       run: dotnet tool install --global dotnet-coverage
     - name: Test
-      run: dotnet test  --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      run: dotnet test ./Spaceship.IoC.Test.No.Strategies --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
     #- name: Test
     #  run: dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage1.xml'
     #- name: ls
