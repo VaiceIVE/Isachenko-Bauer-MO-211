@@ -19,7 +19,7 @@ public class TransactionsTest
         Dictionary<string, string> transactionManager = new();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
-            string output = null;
+            var output = null;
             transactionManager.TryGetValue((string) args[0], out output);
             return output;
         }).Execute();
@@ -38,6 +38,34 @@ public class TransactionsTest
     }
 
     [Fact]
+    public void GetNonExistentKey()
+    {
+        new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
+
+        var scope = Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"));
+
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", scope).Execute();
+
+        Dictionary<string, string> transactionManager = new();
+
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
+            var output = null;
+            transactionManager.TryGetValue((string) args[0], out output);
+            return output;
+        }).Execute();
+
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentTransaction.Id", (object[] args) => {
+           return "1";
+        }).Execute();
+
+        transactionManager["1"] = "Commited";
+
+        TwoPhaseObject obj = new();
+
+        Assert.Throws<Exception>(() => {var a = obj.get_property("Velocity");});
+    }
+
+    [Fact]
     public void GetAbortedTransaction()
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
@@ -51,7 +79,7 @@ public class TransactionsTest
         Dictionary<string, string> transactionManager = new();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
-            string output = null;
+            var output = null;
             transactionManager.TryGetValue((string) args[0], out output);
             return output;
         }).Execute();
@@ -94,7 +122,7 @@ public class TransactionsTest
         Dictionary<string, string> transactionManager = new();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
-            string output = null;
+            var output = null;
             transactionManager.TryGetValue((string) args[0], out output);
             return output;
         }).Execute();
@@ -119,7 +147,7 @@ public class TransactionsTest
 
     }
 
-         [Fact]
+    [Fact]
     public void SetAbortedTransaction()
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
@@ -133,7 +161,7 @@ public class TransactionsTest
         Dictionary<string, string> transactionManager = new();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TransactionManager.GetByTransactionId", (object[] args) => {
-            string output = null;
+            var output = null;
             transactionManager.TryGetValue((string) args[0], out output);
             return output;
         }).Execute();

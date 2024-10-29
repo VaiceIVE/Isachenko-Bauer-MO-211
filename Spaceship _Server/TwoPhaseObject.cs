@@ -50,7 +50,7 @@ namespace Spaceship__Server{
                 }
                 else{
                     string transactionState = IoC.Resolve<string>("TransactionManager.GetByTransactionId", properties[key].transactionId);
-                    if(transactionState == "Committed"){
+                    if(transactionState == "Commited"){
                         properties[key] = new TwoPhaseValue(properties[key].transactionValue, value, IoC.Resolve<string>("CurrentTransaction.Id"));
                     }
                     else{
