@@ -5,7 +5,7 @@ using Hwdtech;
 using System;
 using System.Threading;
 using System.Linq;
-
+using Google.Protobuf.Collections;
 namespace Spaceship__Server;
 
 
@@ -238,8 +238,13 @@ public class Dependencies
 
         }).Execute();
 
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Map protobuf to dict", (object[] args) => {
+            return ProtobufMapperStrategy.Run((MapField<string, string>) args[0]);
+        }).Execute();
+
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Deserialize Message to Command", (object[] args) => 
         {
+
             Dictionary<string, object> MessageContent = (Dictionary<string, object>) args[0];
 
             string MessageType = (string) MessageContent["type"];
