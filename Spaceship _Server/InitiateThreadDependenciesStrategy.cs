@@ -5,7 +5,7 @@ namespace Spaceship__Server;
 
 public class InitiateThreadDependenciesStrategy{
 
-    public static void Run(){
+    public static void Run(string id){
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
 
         var scope = IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"));
@@ -33,7 +33,9 @@ public class InitiateThreadDependenciesStrategy{
         game1.Add("obj123", obj.Object);
 
         GamesObjects.Add("2.1", game1);
-
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentGameId", (object[] args) => {
+                return id;
+        }).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Get Object by ids", (object[] args) => 
         {
             string GameID = (string) args[0];

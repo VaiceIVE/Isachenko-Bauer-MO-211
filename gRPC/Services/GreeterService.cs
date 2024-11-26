@@ -48,26 +48,24 @@ public class GreeterService : Greeter.GreeterBase
             return cmd;
         }).Execute(); 
 
+        snd1.Send(new ActionCommand(() => {
+            InitiateThreadDependenciesStrategy.Run("1");
+            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "GetInternalSenderByThreadId", (object[] args) => {
+            return internalDicts[(string)args[0]];
+        }).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "GetOrderSenderByThreadId", (object[] args) => {
             return routeDict[(string)args[0]];
         }).Execute();
-
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "GetInternalSenderByThreadId", (object[] args) => {
-            return internalDicts[(string)args[0]];
-        }).Execute();
-
-        snd1.Send(new ActionCommand(() => {
-            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentGameId", (object[] args) => {
-                return "1";
-            }).Execute();
-            InitiateThreadDependenciesStrategy.Run();
         })).Execute();
 
         snd2.Send(new ActionCommand(() => {
-            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentGameId", (object[] args) => {
-                return "2";
-            }).Execute();
-            InitiateThreadDependenciesStrategy.Run();
+            InitiateThreadDependenciesStrategy.Run("2");
+            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "GetInternalSenderByThreadId", (object[] args) => {
+            return internalDicts[(string)args[0]];
+        }).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "GetOrderSenderByThreadId", (object[] args) => {
+            return routeDict[(string)args[0]];
+        }).Execute();
         })).Execute();
 
         thread1.Start();

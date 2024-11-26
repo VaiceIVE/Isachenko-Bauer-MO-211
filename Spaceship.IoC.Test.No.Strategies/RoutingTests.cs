@@ -23,7 +23,7 @@ public class RoutingTests
         }).Execute(); 
 
 
-        InitiateThreadDependenciesStrategy.Run();
+        InitiateThreadDependenciesStrategy.Run("1");
 
         BlockingCollection<Spaceship__Server.ICommand> queue1 = new();
         BlockingCollection<Spaceship__Server.ICommand> orderQueue1 = new();
@@ -47,10 +47,6 @@ public class RoutingTests
         Dictionary<string, object> ValueDictionary4 = new(){{"type", "Shoot"}, {"gameid", "2.1"}, {"objid", "obj123"}, {"thread", "2"}};
 
         Assert.Empty(orderQueue1);
-
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "CurrentGameId", (object[] args) => {
-            return "1";
-        }).Execute();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "GetOrderSenderByThreadId", (object[] args) => {
             return routeDict[(string)args[0]];
@@ -86,7 +82,7 @@ public class RoutingTests
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", scope).Execute();
 
-        InitiateThreadDependenciesStrategy.Run();
+        InitiateThreadDependenciesStrategy.Run("1");
 
         var newScope = Hwdtech.IoC.Resolve<object>("Scopes.Current");
 
