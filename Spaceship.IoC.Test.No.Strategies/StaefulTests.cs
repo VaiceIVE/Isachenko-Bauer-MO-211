@@ -378,7 +378,7 @@ public class Stateful
 
         ActionCommand cmd = new(() => {});
 
-        Assert.True(thread.receiver.isEmpty());
+        Assert.False(thread.receiver.isEmpty());
 
         IoC.Resolve<Spaceship__Server.ICommand>("Hard Stop Thread", "1", () => {waiter.Set();}).Execute();
 
@@ -389,5 +389,29 @@ public class Stateful
         waiter.WaitOne();
 
         Assert.False(thread.receiver.isEmpty());
+    }
+
+    [Fact]
+    public void HandleOrderTest()
+    {
+        AutoResetEvent waiter = new(false);
+        bool isHandled = false;
+        BlockingCollection<Spaceship__Server.ICommand> q = new();
+        BlockingCollection<Spaceship__Server.ICommand> q2 = new();
+        ISender sender = new SenderAdapter(q);
+        IReciver receiver = new RecieverAdapter(q);
+        IReciver receiver2 = new RecieverAdapter(q2);
+        MyThread thread = new(receiver, receiver2);
+
+        q2.Add(new ActionCommand(() => {
+            isHandled = true;
+            waiter.Set();
+            }));
+
+        thread.Start();
+
+        waiter.WaitOne();
+
+        Assert.True(isHandled);
     }
 }

@@ -72,10 +72,12 @@ public class Dependencies
                 string id = (string)args[0]; 
                 Action action = (Action)args[1];
                 BlockingCollection<Spaceship__Server.ICommand> q = new();
-
+                BlockingCollection<Spaceship__Server.ICommand> q2 = new();
                 ISender sender = new SenderAdapter(q);
                 IReciver receiver = new RecieverAdapter(q);
-                MyThread thread = new(receiver);
+                IReciver receiver2 = new RecieverAdapter(q2);
+
+                MyThread thread = new(receiver, receiver2);
 
                 q.Add(new ActionCommand(action));
 
@@ -89,10 +91,11 @@ public class Dependencies
             else{
                 string id = (string)args[0]; 
                 BlockingCollection<Spaceship__Server.ICommand> q = new();
-
+                BlockingCollection<Spaceship__Server.ICommand> q2 = new();
                 ISender sender = new SenderAdapter(q);
                 IReciver receiver = new RecieverAdapter(q);
-                MyThread thread = new(receiver);
+                IReciver receiver2 = new RecieverAdapter(q2);
+                MyThread thread = new(receiver, receiver2);
 
                 thread.Start();
 

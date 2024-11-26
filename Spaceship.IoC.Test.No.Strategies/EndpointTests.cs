@@ -72,10 +72,11 @@ public class EndTests
                 string id = (string)args[0]; 
                 Action action = (Action)args[1];
                 BlockingCollection<Spaceship__Server.ICommand> q = new();
-
+                BlockingCollection<Spaceship__Server.ICommand> q1 = new();
                 ISender sender = new SenderAdapter(q);
                 IReciver receiver = new RecieverAdapter(q);
-                MyThread thread = new(receiver);
+                IReciver receiver1 = new RecieverAdapter(q1);
+                MyThread thread = new(receiver, receiver1);
 
                 q.Add(new ActionCommand(action));
 
@@ -89,10 +90,11 @@ public class EndTests
             else{
                 string id = (string)args[0]; 
                 BlockingCollection<Spaceship__Server.ICommand> q = new();
-
+                BlockingCollection<Spaceship__Server.ICommand> q1 = new();
                 ISender sender = new SenderAdapter(q);
                 IReciver receiver = new RecieverAdapter(q);
-                MyThread thread = new(receiver);
+                IReciver receiver1 = new RecieverAdapter(q1);
+                MyThread thread = new(receiver, receiver1);
 
                 thread.Start();
 
