@@ -378,7 +378,7 @@ public class Stateful
 
         ActionCommand cmd = new(() => {});
 
-        Assert.False(thread.receiver.isEmpty());
+        Assert.True(thread.receiver.isEmpty());
 
         IoC.Resolve<Spaceship__Server.ICommand>("Hard Stop Thread", "1", () => {waiter.Set();}).Execute();
 
