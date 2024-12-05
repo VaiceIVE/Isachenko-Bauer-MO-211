@@ -7,6 +7,7 @@ public class MyThread
 {
     public Thread thread;
     public IReciver receiver;
+    public IReciver orderReciever;
     public bool stop = false;
     public Action strategy;
 
@@ -14,12 +15,23 @@ public class MyThread
 
     internal void HandleCommand()
     {
-        var cmd = receiver.Receive();
+        if(!receiver.isEmpty())
+        {
+            var cmd = receiver.Receive();
 
-        cmd.Execute();
+            cmd.Execute();
+        }
+        
+        if(!orderReciever.isEmpty())
+        {
+            var order = orderReciever.Receive();
+
+            order.Execute();
+        }
     }
-    public MyThread(IReciver queue)
+    public MyThread(IReciver queue, IReciver orderQueue)
     {
+        this.orderReciever = orderQueue;
         this.receiver = queue;
         strategy = () =>
         {

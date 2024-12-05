@@ -5,7 +5,7 @@ using Hwdtech;
 using System;
 using System.Threading;
 using System.Linq;
-
+using Google.Protobuf.Collections;
 namespace Spaceship__Server;
 
 
@@ -72,10 +72,12 @@ public class Dependencies
                 string id = (string)args[0]; 
                 Action action = (Action)args[1];
                 BlockingCollection<Spaceship__Server.ICommand> q = new();
-
+                BlockingCollection<Spaceship__Server.ICommand> q2 = new();
                 ISender sender = new SenderAdapter(q);
                 IReciver receiver = new RecieverAdapter(q);
-                MyThread thread = new(receiver);
+                IReciver receiver2 = new RecieverAdapter(q2);
+
+                MyThread thread = new(receiver, receiver2);
 
                 q.Add(new ActionCommand(action));
 
@@ -89,10 +91,11 @@ public class Dependencies
             else{
                 string id = (string)args[0]; 
                 BlockingCollection<Spaceship__Server.ICommand> q = new();
-
+                BlockingCollection<Spaceship__Server.ICommand> q2 = new();
                 ISender sender = new SenderAdapter(q);
                 IReciver receiver = new RecieverAdapter(q);
-                MyThread thread = new(receiver);
+                IReciver receiver2 = new RecieverAdapter(q2);
+                MyThread thread = new(receiver, receiver2);
 
                 thread.Start();
 
@@ -238,8 +241,13 @@ public class Dependencies
 
         }).Execute();
 
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Map protobuf to dict", (object[] args) => {
+            return ProtobufMapperStrategy.Run((MapField<string, string>) args[0]);
+        }).Execute();
+
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Deserialize Message to Command", (object[] args) => 
         {
+
             Dictionary<string, object> MessageContent = (Dictionary<string, object>) args[0];
 
             string MessageType = (string) MessageContent["type"];
