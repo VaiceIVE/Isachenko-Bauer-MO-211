@@ -10,7 +10,6 @@ public class GameDeserializer{
 
         Dictionary<string, object> gameObjects = new();
         Queue<Spaceship__Server.ICommand> gameQueue = new();
-//"obj123 : Spaceship__Server.TwoPhaseObject{key=string value, key2=int 123}; | Command type=action, action={} | 00:00:00.1000000"
         foreach(string propertyData in serializedData[0].Split(';')){
             if (propertyData.Contains(':'))
             {
