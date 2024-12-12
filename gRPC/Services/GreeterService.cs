@@ -3,6 +3,8 @@ using gRPC;
 using Spaceship__Server;
 using System.Collections.Concurrent;
 using Hwdtech;
+using Grpc.Net.Client;
+using GrpcGreeterClient;
 namespace gRPC.Services;
 
 public class GreeterService : Greeter.GreeterBase
@@ -19,7 +21,9 @@ public class GreeterService : Greeter.GreeterBase
         this.scope = Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"));
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", this.scope).Execute();  
-        
+
+        Dictionary<string, string> serverChannels = new(){{"1", "https://localhost:5104"}, {"2", "https://localhost:5105"}};
+
         BlockingCollection<Spaceship__Server.ICommand> queue1 = new();
         BlockingCollection<Spaceship__Server.ICommand> queue2 = new();
         BlockingCollection<Spaceship__Server.ICommand> orderQueue1 = new();
@@ -91,10 +95,34 @@ public class GreeterService : Greeter.GreeterBase
         else{
             status = "bad";
         }
-
+        
         return Task.FromResult(new StatusReply
         {
             Status = status
+        });
+    }
+
+    public async override Task<newGameStatus> MigrateGame(gameStatus request, ServerCallContext context)
+    {
+        string gameId = request.GameId;
+        string serializedGame = GameSerializer.Serialize(gameId);
+
+        GrpcClient.Call(request.NewServerId, serializedGame);
+
+        return await Task.FromResult(new newGameStatus
+        {
+            GameStatus = "ok"
+        });
+    }
+
+    public override Task<acceptStatus> AcceptGame(serializedGameMessage request, ServerCallContext context)
+    {
+        string serializedGame = request.SerializedGame;
+        Spaceship__Server.ICommand newGameCommand = GameDeserializer.Deserialize(serializedGame);
+        Hwdtech.IoC.Resolve<Spaceship__Server.ICommand>("AddGame", "1", newGameCommand).Execute();
+        return Task.FromResult(new acceptStatus
+        {
+            AcceptStatus = "ok"
         });
     }
 }
