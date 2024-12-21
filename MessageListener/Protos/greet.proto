@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option csharp_namespace = "MessageListener";
+
+package greet;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (gRPCMessage) returns (StatusReply);
+
+  rpc MigrateGame (gameStatus) returns (newGameStatus);
+
+  rpc AcceptGame (serializedGameMessage) returns (acceptStatus);
+}
+
+message serializedGameMessage{
+  string serializedGame = 1;
+}
+
+message gameStatus{
+  string gameId = 1;
+  string newServerId = 2;
+}
+
+message acceptStatus{
+  string acceptStatus = 1;
+}
+
+message newGameStatus{
+  string gameStatus = 1;
+}
+
+// The request message containing the user's name.
+message gRPCMessage {
+  map<string, string> props = 1;
+}
+
+// The response message containing the greetings.
+message StatusReply {
+  string status = 1;
+}
